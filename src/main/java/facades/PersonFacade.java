@@ -74,7 +74,7 @@ public class PersonFacade {
         Person p = em.find(Person.class, personId);
         Hobby h = em.find(Hobby.class, hobbyId);
         if(p == null || h == null)
-            throw new IllegalArgumentException("Person or Hobby is not found");
+            throw new IllegalArgumentException("Person or Hobby not found");
         p.removeHobby(h);
         try {
             em.getTransaction().begin();
