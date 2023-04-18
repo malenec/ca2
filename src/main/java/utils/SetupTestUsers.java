@@ -1,6 +1,7 @@
 package utils;
 
 
+import entities.Quote;
 import entities.Role;
 import entities.User;
 
@@ -27,7 +28,7 @@ public class SetupTestUsers {
 //    if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
 //      throw new UnsupportedOperationException("You have not changed the passwords");
 //
-//    em.getTransaction().begin();
+    em.getTransaction().begin();
 //    Role userRole = new Role("user");
 //    Role adminRole = new Role("admin");
 //    user.addRole(userRole);
@@ -45,7 +46,16 @@ public class SetupTestUsers {
 //    System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
 //    System.out.println("Created TEST Users");
 
-    User user = em.find(User.class, "user");
+//    Quote quote = new Quote("jeg er sej");
+    User user = em.find(User.class, 1L);
+    Quote quote = em.find(Quote.class, 1L);
+    System.out.println(user);
+    System.out.println(quote);
+    user.addQuote(quote);
+//    em.persist(quote);
+    em.merge(user);
+    em.getTransaction().commit();
+
     System.out.println("Testing user with OK password: " + user.verifyPassword("test123"));
    
   }

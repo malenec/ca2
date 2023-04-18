@@ -9,12 +9,14 @@
         <module name="devops-starter" />
         <module name="ca2_backend" />
         <module name="backend" />
+        <module name="ca2" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backend" options="-endorseddirs /Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed" />
+      <module name="ca2" options="-endorseddirs &quot;C:\Users\sutsk\Dropbox\programming\3. Semester\CA2\ca2\target/endorsed&quot;" />
       <module name="ca2_backend" options="-endorseddirs &quot;/Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed&quot;" />
       <module name="devops-starter" options="-endorseddirs /Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed" />
     </option>

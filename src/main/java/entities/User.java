@@ -3,14 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.mindrot.jbcrypt.BCrypt;
@@ -21,6 +14,9 @@ public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
   @Basic(optional = false)
   @NotNull
   @Column(name = "user_name", length = 25)
@@ -30,11 +26,23 @@ public class User implements Serializable {
   @Size(min = 1, max = 255)
   @Column(name = "user_pass")
   private String userPass;
+
+  @Column(name = "age")
+  private int age;
+
   @JoinTable(name = "user_roles", joinColumns = {
     @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
     @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
   @ManyToMany
   private List<Role> roleList = new ArrayList<>();
+
+
+  @ManyToMany
+  @JoinTable(
+          name="User_Quote",
+          joinColumns=@JoinColumn(name="User_id", referencedColumnName="id"),
+          inverseJoinColumns=@JoinColumn(name="Quote_id", referencedColumnName="id"))
+  private List<Quote> quotes;
 
   public List<String> getRolesAsStrings() {
     if (roleList.isEmpty()) {
@@ -59,6 +67,18 @@ public class User implements Serializable {
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
   }
 
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public void setQuotes(List<Quote> quotes) {
+    this.quotes = quotes;
+  }
 
   public String getUserName() {
     return userName;
@@ -88,4 +108,37 @@ public class User implements Serializable {
     roleList.add(userRole);
   }
 
+  public int getAge() {
+    return age;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public List<Quote> getQuotes() {
+    return quotes;
+  }
+
+  public void addQuote(Quote quote) {
+    this.quotes.add(quote);
+    quote.addUser(this);
+  }
+
+  public void removeQuote(Quote quote) {
+    this.quotes.remove(quote);
+    quote.removeUser(this);
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+            "id=" + id +
+            ", userName='" + userName + '\'' +
+            ", userPass='" + userPass + '\'' +
+            ", age=" + age +
+            ", roleList=" + roleList +
+            ", quotes=" + quotes +
+            '}';
+  }
 }
