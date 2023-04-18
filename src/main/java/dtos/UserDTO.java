@@ -7,13 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDTO {
-    private Long id;
     private String username;
     private int age;
     private List<QuoteDTO> quotes;
 
     public UserDTO(User u) {
-        this.id = u.getId();
         this.username = u.getUserName();
         this.age = u.getAge();
         if(u.getQuotes() != null)
@@ -22,14 +20,6 @@ public class UserDTO {
 
     public static List<UserDTO> getDtos(List<User> Users) {
         return Users.stream().map(p -> new UserDTO(p)).collect(Collectors.toList());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -55,8 +45,7 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", age=" + age +
                 ", quotes=" + quotes +
                 '}';

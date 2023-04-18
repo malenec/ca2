@@ -47,9 +47,9 @@ public class UserFacade {
         return user;
     }
 
-    public UserDTO addAge(Long userId, int age){
+    public UserDTO addAge(String username, int age){
         EntityManager em = emf.createEntityManager();
-        User u = em.find(User.class, userId);
+        User u = em.find(User.class, username);
         if(u == null)
             throw new IllegalArgumentException("User not found");
         u.setAge(age);

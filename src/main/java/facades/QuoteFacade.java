@@ -45,7 +45,6 @@ public class QuoteFacade {
     }
 
 
-
     public QuoteDTO createQuote(QuoteDTO qdto){
         Quote h = new Quote(qdto.getQuote());
         EntityManager em = getEntityManager();
@@ -59,9 +58,9 @@ public class QuoteFacade {
         return new QuoteDTO(h);
     }
 
-    public boolean removeQuoteFromUser(Long userId, Long QuoteId){
+    public boolean removeQuoteFromUser(String username, Long QuoteId){
         EntityManager em = getEntityManager();
-        User u = em.find(User.class, userId);
+        User u = em.find(User.class, username);
         Quote q = em.find(Quote.class, QuoteId);
         if(u == null || q == null)
             throw new IllegalArgumentException("user or Quote not found");
@@ -79,9 +78,9 @@ public class QuoteFacade {
         return true;
     }
 
-    public UserDTO addQuote(Long userId, Long QuoteId){
+    public UserDTO addQuote(String username, Long QuoteId){
         EntityManager em = getEntityManager();
-        User u = em.find(User.class, userId);
+        User u = em.find(User.class, username);
         Quote q = em.find(Quote.class, QuoteId);
         if(u == null || q == null)
             throw new IllegalArgumentException("user or Quote not found");
@@ -96,16 +95,6 @@ public class QuoteFacade {
         }
         return new UserDTO(u);
     }
-
-    public UserDTO getById(long id) { //throws RenameMeNotFoundException {
-        EntityManager em = emf.createEntityManager();
-        User u = em.find(User.class, id);
-//        if (rm == null)
-//            throw new RenameMeNotFoundException("The RenameMe entity with ID: "+id+" Was not found");
-        return new UserDTO(u);
-    }
-
-
 
     public List<QuoteDTO> getAll(){
         EntityManager em = emf.createEntityManager();

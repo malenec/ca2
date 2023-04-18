@@ -14,9 +14,6 @@ public class User implements Serializable {
 
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
   @Basic(optional = false)
   @NotNull
   @Column(name = "user_name", length = 25)
@@ -40,7 +37,7 @@ public class User implements Serializable {
   @ManyToMany
   @JoinTable(
           name="User_Quote",
-          joinColumns=@JoinColumn(name="User_id", referencedColumnName="id"),
+          joinColumns=@JoinColumn(name="user_name", referencedColumnName="user_name"),
           inverseJoinColumns=@JoinColumn(name="Quote_id", referencedColumnName="id"))
   private List<Quote> quotes;
 
@@ -65,15 +62,6 @@ public class User implements Serializable {
   public User(String userName, String userPass) {
     this.userName = userName;
     this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
-  }
-
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
   }
 
   public void setQuotes(List<Quote> quotes) {
@@ -133,8 +121,7 @@ public class User implements Serializable {
   @Override
   public String toString() {
     return "User{" +
-            "id=" + id +
-            ", userName='" + userName + '\'' +
+            "userName='" + userName + '\'' +
             ", userPass='" + userPass + '\'' +
             ", age=" + age +
             ", roleList=" + roleList +
