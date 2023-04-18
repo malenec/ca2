@@ -7,14 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="devops-starter" />
+        <module name="ca2_backend" />
         <module name="backend" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="backend" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
-      <module name="devops-starter" options="-endorseddirs $PROJECT_DIR$/target/endorsed" />
+      <module name="backend" options="-endorseddirs /Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed" />
+      <module name="ca2_backend" options="-endorseddirs &quot;/Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed&quot;" />
+      <module name="devops-starter" options="-endorseddirs /Users/Israa/Documents/Datamatiker-uddannelsen/3. semester/CA2/ca2_backend/target/endorsed" />
     </option>
   </component>
 </project>
