@@ -11,3 +11,8 @@ Content-Type: application/json
 ###
 GET http://localhost:8080/recap/api/info/admin
 x-access-token:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiYWRtaW4iLCJleHAiOjE2ODEzMDAxNjgsImlhdCI6MTY4MTI5ODM2OCwiaXNzdWVyIjoic2VtZXN0ZXJzdGFydGNvZGUtZGF0MyIsInVzZXJuYW1lIjoiYWRtaW4ifQ.6QKKnCtWqucj6JUYCiesa10ce299f9AkZxyPYbXXbH8
+
+
+###
+// Get Kanye quote
+GET http://localhost:8080/backend/api/ext/kanye
