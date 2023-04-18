@@ -2,16 +2,10 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.KanyeDTO;
-import entities.User;
 import facades.ExternalApiFacade;
-import facades.FacadeExample;
 import utils.EMF_Creator;
 
-import javax.annotation.security.RolesAllowed;
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -19,7 +13,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
-import java.util.List;
 
 /**
  * @author lam@cphbusiness.dk
@@ -47,7 +40,7 @@ public class ExternalApiResource {
     public String getKanyeQuote() throws Exception {
 
         try {
-            return "{\"quote\":\"" + FACADE.getHttpResponseBody("https://api.kanye.rest") + "\"}";
+            return "{\"quote\":\"" + FACADE.getKanyeQuote("https://api.kanye.rest") + "\"}";
         } catch (Exception e) {
             e.printStackTrace();
         }

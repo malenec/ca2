@@ -1,5 +1,9 @@
 package facades;
 
+import dtos.PersonDTO;
+import dtos.UserDTO;
+import entities.Hobby;
+import entities.Person;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -41,6 +45,22 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+
+    public UserDTO addAge(Long userId, int age){
+        EntityManager em = emf.createEntityManager();
+        User u = em.find(User.class, userId);
+        if(u == null)
+            throw new IllegalArgumentException("User not found");
+        u.setAge(age);
+        try {
+            em.getTransaction().begin();
+            em.merge(u);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new UserDTO(u);
     }
 
 }

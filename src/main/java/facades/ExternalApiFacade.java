@@ -2,6 +2,7 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.AgeDTO;
 import dtos.KanyeDTO;
 
 import javax.persistence.EntityManager;
@@ -34,7 +35,7 @@ public class ExternalApiFacade {
     }
 
 
-    public String getHttpResponseBody(String url) throws Exception {
+    public String getKanyeQuote(String url) throws Exception {
         var client = HttpClient.newHttpClient();
         var request = HttpRequest
                 .newBuilder(URI.create(url))
@@ -48,10 +49,25 @@ public class ExternalApiFacade {
         return gsonString.getQuote();
     }
 
+    public int predictAge(String url, String name) throws Exception {
+        var client = HttpClient.newHttpClient();
+        var request = HttpRequest
+                .newBuilder(URI.create(url + name))
+                .header("accept", "application/json")
+                .build();
+        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
+        AgeDTO gsonString = gson.fromJson(response.body(), AgeDTO.class);
+        System.out.println(gsonString.getAge());
+
+        return gsonString.getAge();
+    }
+
     public static void main(String[] args) throws Exception {
         ExternalApiFacade facade = new ExternalApiFacade();
         try {
-            facade.getHttpResponseBody("https://api.kanye.rest");
+            facade.getKanyeQuote("https://api.kanye.rest");
+            facade.predictAge("https://api.agify.io/?name=", "Kanye");
         } catch (Exception e) {
             e.printStackTrace();
         }
