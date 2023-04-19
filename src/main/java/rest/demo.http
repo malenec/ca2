@@ -26,3 +26,8 @@ Content-Type: application/json
 {
   "quote": "I am a god"
 }
+
+###
+
+GET http://localhost:8080/backend/api/ext/age/israa
+

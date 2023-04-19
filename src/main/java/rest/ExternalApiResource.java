@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.AgeDTO;
 import dtos.PersonDTO;
 import dtos.QuoteDTO;
 import facades.ExternalApiFacade;
@@ -58,6 +59,32 @@ public class ExternalApiResource {
         System.out.println("Quote added to user" + quoteDTO);
         return Response.ok().entity(quoteDTO).build();
     }
+
+
+    @GET
+    @Path("/age/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String predictAge(@PathParam("name") String name) throws Exception {
+
+        try {
+            return GSON.toJson(EXTERNAL_API_FACADE.predictAge("https://api.agify.io/?name=", name));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "your name is not in the database";
+    }
+
+//    @POST
+//    @Path("/age/{username}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    public Response saveAgeUser(@PathParam("username") String username) {
+//        AgeDTO ageDTO = GSON.fromJson(quote, AgeDTO.class);
+//        ageDTO = INTERNAL_API_FACADE.createQuote(ageDTO);
+//        INTERNAL_API_FACADE.addQuote(userName, ageDTO.getId());
+//        System.out.println("Quote added to user" + ageDTO);
+//        return Response.ok().entity(ageDTO).build();
+//    }
 
 
 
