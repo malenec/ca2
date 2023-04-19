@@ -18,13 +18,13 @@ import java.util.List;
  *
  * Rename Class to a relevant name Add add relevant facade methods
  */
-public class QuoteFacade {
+public class InternalApiFacade {
 
-    private static QuoteFacade instance;
+    private static InternalApiFacade instance;
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
-    private QuoteFacade() {}
+    private InternalApiFacade() {}
 
 
     /**
@@ -32,10 +32,10 @@ public class QuoteFacade {
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static QuoteFacade getQuoteFacade(EntityManagerFactory _emf) {
+    public static InternalApiFacade getInternalApiFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new QuoteFacade();
+            instance = new InternalApiFacade();
         }
         return instance;
     }
@@ -45,17 +45,34 @@ public class QuoteFacade {
     }
 
 
-    public QuoteDTO createQuote(QuoteDTO qdto){
-        Quote h = new Quote(qdto.getQuote());
-        EntityManager em = getEntityManager();
+    public UserDTO addAge(String username, int age){
+        EntityManager em = emf.createEntityManager();
+        User u = em.find(User.class, username);
+        if(u == null)
+            throw new IllegalArgumentException("User not found");
+        u.setAge(age);
         try {
             em.getTransaction().begin();
-            em.persist(h);
+            em.merge(u);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return new QuoteDTO(h);
+        return new UserDTO(u);
+    }
+
+
+    public QuoteDTO createQuote(QuoteDTO qdto){
+        Quote q = new Quote(qdto.getQuote());
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(q);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new QuoteDTO(q);
     }
 
     public boolean removeQuoteFromUser(String username, Long QuoteId){
@@ -78,6 +95,7 @@ public class QuoteFacade {
         return true;
     }
 
+    //Adds Quote to user
     public UserDTO addQuote(String username, Long QuoteId){
         EntityManager em = getEntityManager();
         User u = em.find(User.class, username);
@@ -102,11 +120,19 @@ public class QuoteFacade {
         List<Quote> quotes = query.getResultList();
         return QuoteDTO.getDtos(quotes);
     }
+    
+    
 
     public static void main(String[] args) {
         emf = EMF_Creator.createEntityManagerFactory();
-        QuoteFacade qf = getQuoteFacade(emf);
-        qf.getAll().forEach(dto->System.out.println(dto));
+        InternalApiFacade iaf = getInternalApiFacade(emf);
+        iaf.getAll().forEach(dto->System.out.println(dto));
+
+//        QuoteDTO qdto = new QuoteDTO(new Quote("test"));
+//        iaf.createQuote(qdto);
+//        iaf.getAll().forEach(dto->System.out.println(dto));
+
+        iaf.addQuote("user", 2L);
     }
 
 }

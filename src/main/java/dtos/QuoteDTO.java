@@ -21,6 +21,10 @@ public class QuoteDTO {
 
     }
 
+    public QuoteDTO(String quote) {
+        this.quote = quote;
+    }
+
     public static List<QuoteDTO> getDtos(List<Quote> quotes) {
         return quotes.stream().map(q -> new QuoteDTO(q)).collect(Collectors.toList());
     }

@@ -16,3 +16,13 @@ x-access-token:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiYWRtaW4iLCJl
 ###
 // Get Kanye quote
 GET http://localhost:8080/backend/api/ext/kanye
+
+
+###
+
+POST http://localhost:8080/backend/api/ext/kanye/user
+Content-Type: application/json
+
+{
+  "quote": "I am a god"
+}
