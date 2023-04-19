@@ -39,7 +39,8 @@ public class ExternalApiResource {
     public String getKanyeQuote() throws Exception {
 
         try {
-            return EXTERNAL_API_FACADE.getKanyeQuote("https://api.kanye.rest");
+//            return EXTERNAL_API_FACADE.getKanyeQuote("https://api.kanye.rest");
+            return GSON.toJson(EXTERNAL_API_FACADE.getKanyeQuote("https://api.kanye.rest"));
         } catch (Exception e) {
             e.printStackTrace();
         }
