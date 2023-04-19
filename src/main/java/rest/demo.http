@@ -24,10 +24,18 @@ POST http://localhost:8080/backend/api/ext/kanye/user
 Content-Type: application/json
 
 {
-  "quote": "I am a god"
+  "quote": "I am dead"
 }
 
 ###
 
 GET http://localhost:8080/backend/api/ext/age/israa
 
+###
+
+POST http://localhost:8080/backend/api/ext/age/admin
+Content-Type: application/json
+
+{
+    "age": 22
+}

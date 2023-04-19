@@ -44,7 +44,7 @@ public class InternalApiFacade {
         return emf.createEntityManager();
     }
 
-
+        //This method is both a create and update method
     public UserDTO addAge(String username, int age){
         EntityManager em = emf.createEntityManager();
         User u = em.find(User.class, username);
@@ -132,7 +132,8 @@ public class InternalApiFacade {
 //        iaf.createQuote(qdto);
 //        iaf.getAll().forEach(dto->System.out.println(dto));
 
-        iaf.addQuote("user", 2L);
+//        iaf.addQuote("user", 2L);
+        iaf.addAge("user", 30);
     }
 
 }

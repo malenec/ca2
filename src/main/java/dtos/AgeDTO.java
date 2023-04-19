@@ -5,7 +5,9 @@ public class AgeDTO {
     private int count;
     private String name;
 
-    public AgeDTO() {}
+    public AgeDTO(int age) {
+        this.age = age;
+    }
 
     public AgeDTO(int age, int count, String name) {
         this.age = age;

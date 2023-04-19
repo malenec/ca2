@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import dtos.AgeDTO;
 import dtos.PersonDTO;
 import dtos.QuoteDTO;
+import dtos.UserDTO;
 import facades.ExternalApiFacade;
 import facades.InternalApiFacade;
 import utils.EMF_Creator;
@@ -53,6 +54,7 @@ public class ExternalApiResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response addQuoteToUser(@PathParam("username") String userName, String quote) {
+        System.out.println("THIS IS YOUR QUOTE: " + quote);
         QuoteDTO quoteDTO = GSON.fromJson(quote, QuoteDTO.class);
         quoteDTO = INTERNAL_API_FACADE.createQuote(quoteDTO);
         INTERNAL_API_FACADE.addQuote(userName, quoteDTO.getId());
@@ -74,18 +76,14 @@ public class ExternalApiResource {
         return "your name is not in the database";
     }
 
-//    @POST
-//    @Path("/age/{username}")
-//    @Produces({MediaType.APPLICATION_JSON})
-//    @Consumes({MediaType.APPLICATION_JSON})
-//    public Response saveAgeUser(@PathParam("username") String username) {
-//        AgeDTO ageDTO = GSON.fromJson(quote, AgeDTO.class);
-//        ageDTO = INTERNAL_API_FACADE.createQuote(ageDTO);
-//        INTERNAL_API_FACADE.addQuote(userName, ageDTO.getId());
-//        System.out.println("Quote added to user" + ageDTO);
-//        return Response.ok().entity(ageDTO).build();
-//    }
-
-
+    @POST
+    @Path("/age/{username}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response addAgeToUser(@PathParam("username") String userName, String age) {
+        AgeDTO ageDTO = GSON.fromJson(age, AgeDTO.class);
+        UserDTO userDTO = INTERNAL_API_FACADE.addAge(userName, ageDTO.getAge());
+        return Response.ok().entity(userDTO).build();
+    }
 
 }
