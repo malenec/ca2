@@ -75,7 +75,7 @@ public class InternalApiFacade {
         return new QuoteDTO(q);
     }
 
-    public boolean removeQuoteFromUser(String username, Long QuoteId){
+    public UserDTO removeQuoteFromUser(String username, Long QuoteId){
         EntityManager em = getEntityManager();
         User u = em.find(User.class, username);
         Quote q = em.find(Quote.class, QuoteId);
@@ -88,11 +88,12 @@ public class InternalApiFacade {
             //em.merge(h);
             em.getTransaction().commit();
         }catch (Exception e){
-            return false;
+            System.out.println("No user or quote with that id found");
+            return null;
         } finally {
             em.close();
         }
-        return true;
+        return new UserDTO(u);
     }
 
     //Adds Quote to user
