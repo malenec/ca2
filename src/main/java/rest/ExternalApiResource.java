@@ -35,6 +35,14 @@ public class ExternalApiResource {
 //        return "{\"msg\":\"Hello anonymous person\"}";
 //    }
 //
+
+    //ensures we can parse servers of rest-test : endpoint /ext
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String demo() {
+        return "{\"msg\":\"Hello World\"}";
+    }
+
     @GET
     @Path("kanye")
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,12 +55,6 @@ public class ExternalApiResource {
             e.printStackTrace();
         }
         return "Quote not found";
-    }
-    //ensures we can parse servers of rest-test : endpoint /ext
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String demo() {
-        return "{\"msg\":\"Hello World\"}";
     }
 
     @POST
