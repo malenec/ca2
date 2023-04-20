@@ -48,6 +48,12 @@ public class ExternalApiResource {
         }
         return "Quote not found";
     }
+    //ensures we can parse servers of rest-test : endpoint /ext
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String demo() {
+        return "{\"msg\":\"Hello World\"}";
+    }
 
     @POST
     @Path("/kanye/{username}")

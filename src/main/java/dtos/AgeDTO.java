@@ -2,18 +2,18 @@ package dtos;
 
 public class AgeDTO {
     private int age;
-    private int count;
     private String name;
 
     public AgeDTO(int age) {
         this.age = age;
     }
 
-    public AgeDTO(int age, int count, String name) {
+    public AgeDTO(int age, String name) {
         this.age = age;
-        this.count = count;
         this.name = name;
     }
+
+
 
     public int getAge() {
         return age;
@@ -23,13 +23,7 @@ public class AgeDTO {
         this.age = age;
     }
 
-    public int getCount() {
-        return count;
-    }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
 
     public String getName() {
         return name;
@@ -43,7 +37,6 @@ public class AgeDTO {
     public String toString() {
         return "AgeDTO{" +
                 "age=" + age +
-                ", count=" + count +
                 ", name='" + name + '\'' +
                 '}';
     }

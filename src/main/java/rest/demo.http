@@ -47,3 +47,7 @@ DELETE http://localhost:8080/backend/api/ext/delete/user/10
 ###
 
 POST http://localhost:8080/backend/api/ext/age/admin/22
+
+###
+
+GET http://localhost:8080/backend/api/ext
