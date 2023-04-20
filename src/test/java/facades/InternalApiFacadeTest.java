@@ -43,6 +43,7 @@ class InternalApiFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Quote.deleteAllRows").executeUpdate();
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.persist(user);
             em.getTransaction().commit();
         } finally {
