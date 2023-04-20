@@ -96,6 +96,7 @@ public class InternalApiFacade {
         return new UserDTO(u);
     }
 
+
     //Adds Quote to user
     public UserDTO addQuote(String username, Long QuoteId){
         EntityManager em = getEntityManager();
