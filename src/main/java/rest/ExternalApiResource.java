@@ -86,4 +86,23 @@ public class ExternalApiResource {
         return Response.ok().entity(userDTO).build();
     }
 
+    // Den udkommenterede metode virker ligesom den ovenover, men gør brug af 2 path params i stedet for en json string
+
+//    @POST
+//    @Path("/age/{username}/{age}")
+//    @Produces({MediaType.APPLICATION_JSON})
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    public Response addAgeToUser(@PathParam("username") String userName, @PathParam("age") int age) {
+//        UserDTO userDTO = INTERNAL_API_FACADE.addAge(userName, age);
+//        return Response.ok().entity(userDTO).build();
+//    }
+
+    @DELETE
+    @Path("/delete/{username}/{quoteId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response deleteQuoteFromUser(@PathParam("username") String userName, @PathParam("quoteId") Long quoteId) {
+        UserDTO userDTO = INTERNAL_API_FACADE.removeQuoteFromUser(userName, quoteId);
+        return Response.ok().entity(userDTO).build();
+    }
 }
