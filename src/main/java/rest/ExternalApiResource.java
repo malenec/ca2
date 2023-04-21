@@ -13,6 +13,11 @@ import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 /**
  * @author lam@cphbusiness.dk
@@ -56,6 +61,24 @@ public class ExternalApiResource {
         }
         return "Quote not found";
     }
+
+    @GET
+    @Path("jokes")
+    @Produces("application/json")
+    public String getJokes() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://api.chucknorris.io/jokes/random"))
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = null;
+        try {
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return response.body();
+    }
+
 
     @POST
     @Path("/kanye/{username}")
